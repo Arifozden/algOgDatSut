@@ -4,7 +4,9 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
 
-        int [] vals={16,3,8,9,2,7,6};
+        //finn største tall
+
+        int [] vals={16,3,8,19,22,7,26};
         int maks_verdi = vals [0];
         for (int i=1;i< vals.length;++i){
             int verdi = vals[i];

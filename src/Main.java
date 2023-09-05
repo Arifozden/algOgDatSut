@@ -6,7 +6,7 @@ public class Main {
 
         //finn største tall
 
-        int [] vals={16,3,8,19,22,7,26};
+        int [] vals={160,300,80,19,22,7,26};
         int maks_verdi = vals [0];
         for (int i=1;i< vals.length;++i){
             int verdi = vals[i];

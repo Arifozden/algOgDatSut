@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/algDatObl1/algDatObl1.iml" filepath="$PROJECT_DIR$/algDatObl1/algDatObl1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/algdat_uke1/algdat_uke1.iml" filepath="$PROJECT_DIR$/algdat_uke1/algdat_uke1.iml" />
       <module fileurl="file://$PROJECT_DIR$/algorit.iml" filepath="$PROJECT_DIR$/algorit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/algdat_uke1/nestStorst/nestStorst.iml" filepath="$PROJECT_DIR$/algdat_uke1/nestStorst/nestStorst.iml" />
     </modules>
   </component>
 </project>

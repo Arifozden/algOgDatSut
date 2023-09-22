@@ -22,6 +22,7 @@ public class Iterasjonstesting {
 
         it = tabellListe.iterator();
         it.forEachRemaining((verdi)-> System.out.println(verdi));
+        it.forEachRemaining(System.out::println);
     }
 
 }

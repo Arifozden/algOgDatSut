@@ -1,0 +1,21 @@
+prioritetskø kan gjøre to ting:
+
+legge element inn  i køen
+hente ut det nest prioritert element
+
+når vi skal kaste ut et element, finn viktigste ved å gå gjennom lista, så hent dette ut
+
+1. hva er komplekstiteten til begge disse?
+
+2. hva lønner seg av Tabell liste vs dobbel-lenket liste(dll)?
+
+å legge inn er konstant for både tabell loste og dll
+å kaste ut et element : må finne høyest prioritert element Q(n)
+                        : må hente ut dette elementet
+                            - er Q(n) for tabell liste
+                            - kan være Q(1) for dll.
+
+til sammen a dette derfor O(n) + O(n) = O(n)  tabell liste
+                            O(n) + O(1) = O(n) DLL
+
+avhengig av implementasjon,

@@ -3,8 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/algDatObl1/algDatObl1.iml" filepath="$PROJECT_DIR$/algDatObl1/algDatObl1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/algDat_Oblig2/algDat_Oblig2.iml" filepath="$PROJECT_DIR$/algDat_Oblig2/algDat_Oblig2.iml" />
       <module fileurl="file://$PROJECT_DIR$/algdat_uke1/algdat_uke1.iml" filepath="$PROJECT_DIR$/algdat_uke1/algdat_uke1.iml" />
       <module fileurl="file://$PROJECT_DIR$/algorit.iml" filepath="$PROJECT_DIR$/algorit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/binaerTraer/binaerTraer.iml" filepath="$PROJECT_DIR$/binaerTraer/binaerTraer.iml" />
       <module fileurl="file://$PROJECT_DIR$/iterator/iterator.iml" filepath="$PROJECT_DIR$/iterator/iterator.iml" />
       <module fileurl="file://$PROJECT_DIR$/algdat_uke1/nestStorst/nestStorst.iml" filepath="$PROJECT_DIR$/algdat_uke1/nestStorst/nestStorst.iml" />
       <module fileurl="file://$PROJECT_DIR$/recursiv/recursiv.iml" filepath="$PROJECT_DIR$/recursiv/recursiv.iml" />

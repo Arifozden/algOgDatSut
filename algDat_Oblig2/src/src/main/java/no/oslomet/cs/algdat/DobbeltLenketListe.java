@@ -1,8 +1,6 @@
 package src.main.java.no.oslomet.cs.algdat;
 
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.Objects;
+import java.util.*;
 
 public class DobbeltLenketListe<T> implements Liste<T> {
     // Innebygd (Trenger ikke endres)
@@ -38,7 +36,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return 3; // Returner hvor mange som er i gruppa deres
     }
 
-    // Oppgave 1
+    // Oppgave 1 - tekin
     public DobbeltLenketListe() {
 
         hode = null;
@@ -104,66 +102,71 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return antall() == 0;
     }
 
-    // Oppgave 2
+    // Oppgave 2 - ali riza
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder("[");
-        Node<T> current = hode;
-
-        while (current != null) {
-            result.append(current.verdi);
-            current = current.neste;
-
-            if (current != null) {
-                result.append(", ");
-            }
+        if (antall == 0) {
+            return "[]";
         }
+        StringBuilder stBuilder = new StringBuilder();
+        stBuilder.append("[");
+        Node<T> node = hode;
+        while (node != null && node.verdi != null) {
+            if (node == hale) {
+                stBuilder.append(node.verdi);
+            } else {
+                stBuilder.append(node.verdi).append(", ");
+            }
+            node = node.neste;
+        }
+        stBuilder.append("]");
+        return stBuilder.toString();
 
-        result.append("]");
-        return result.toString();
+
     }
 
     public String omvendtString() {
-        StringBuilder result = new StringBuilder("[");
-        Node<T> current = hale;
-
-        while (current != null) {
-            result.append(current.verdi);
-            current = current.forrige;
-
-            if (current != null) {
-                result.append(", ");
-            }
+        if (antall == 0) {
+            return "[]";
         }
+        StringBuilder stBuilder = new StringBuilder();
+        stBuilder.append("[");
+        Node<T> node = hale;
+        while (node != null && node.verdi != null) {
+            if (node == hode) {
+                stBuilder.append(node.verdi);
+            } else {
+                stBuilder.append(node.verdi).append(", ");
+            }
+            node = node.forrige;
+        }
+        stBuilder.append("]");
+        return stBuilder.toString();
 
-        result.append("]");
-        return result.toString();
+
     }
 
     @Override
     public boolean leggInn(T verdi) {
-        verdi = Objects.requireNonNull(verdi, "Null-verdier er ikke tillatt");    // Tester for null-verdi
-
-        //legger inn en ny node bakerst
-        if(antall > 0){
-            Node<T> ny = new Node<>(verdi);                 // Opretter ny node
-            hale.neste = ny;                                // Setter hale sin neste-peker lik ny
-            ny.forrige = hale;                              // Setter ny sin forrige-peker lik halen
-            hale = ny;                                      // Setter hale lik ny node
-
-        } else {   // Hvis det ikke fins noen noder fra før
-            Node<T> ny = new Node<>(verdi);                 // Opretter ny node
-            hode = ny;                                      // Setter hode lik ny node
-            hale = ny;                                      // Setter hale lik ny node
+        if(verdi==null){
+            throw new NullPointerException("Ikke tillat med null-verdier");
         }
 
-        // Legger 1 til antall og endringer variablene
+        if (antall == 0 ) {
+            hode = hale = new Node<>(verdi);
+        } else {
+            Node<T> ny = new Node<>(verdi);
+            ny.forrige = hale;
+            hale.neste=ny;
+            hale = ny;
+        }
         antall++;
         endringer++;
         return true;
+
     }
 
-    // Oppgave 3
+    // Oppgave 3 - arif
     private Node<T> finnNode(int indeks) {
         Node<T> returNode;
 
@@ -188,13 +191,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         return returNode;
+
     }
 
     @Override
     public T hent(int indeks) {
         indeksKontroll(indeks, false);      // Sjekker om indeksen er ugyldig
-        Node<T> returNode = finnNode(indeks);        // Finner noden til indeks og putter verdien inn i en variabel
-        return returNode.verdi;                      // Returnerer noden til indeks
+        // Finner noden til indeks og putter verdien inn i en variabel
+        return finnNode(indeks).verdi;                      // Returnerer noden til indeks
 
     }
 
@@ -204,10 +208,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if(nyverdi == null) { throw new NullPointerException("Nyverdi kan ikke være null"); }
         indeksKontroll(indeks, false);          // Sjekker om indeksen er ugyldig
         Node<T> node = finnNode(indeks);                 // Finner noden til indeks og putter verdien inn i en variabel
-        T gammelVerdi = node.verdi;                      // Lagrer nodens nåværende veri
+        T retVerdi = node.verdi;                      // Lagrer nodens nåværende veri
         node.verdi = nyverdi;                            // Oppdaterer noden sin verdi
         endringer++;                                     // Øker antall endringer med 1
-        return gammelVerdi;                              // Returnerer nodens verdi før den ble oppdatert
+        return retVerdi;                              // Returnerer nodens verdi før den ble oppdatert
+
 
     }
 
@@ -229,6 +234,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
         DobbeltLenketListe<T> subliste = new DobbeltLenketListe<>(sublisteInput); // Oppretter sublisten, og fyller den
         return subliste;
+
     }
     //Hjelpemetode
     private void fratilKontroll(int antall, int fra, int til) {
@@ -242,6 +248,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             throw new IllegalArgumentException("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
         }
     }
+
 
     // Oppgave 4
     @Override
@@ -268,7 +275,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return true;
     }
 
-    // Oppgave 5
+    // Oppgave 5 - ali riza
     @Override
     public void leggInn(int indeks, T verdi) {
         if(indeks < 0 || antall < indeks){                  //Unntak
@@ -420,7 +427,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         private DobbeltLenketListeIterator(int indeks) {
-            throw new UnsupportedOperationException();
+            indeksKontroll(indeks,false);
+            denne = hode;
+            kanFjerne = false;
+            iteratorendringer = endringer;
+            for (int i = 0; i < indeks; i++) {
+                next();
+            }
         }
 
         @Override
@@ -430,7 +443,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next() {
-            throw new UnsupportedOperationException();
+            if (iteratorendringer != endringer) {
+                throw new ConcurrentModificationException("iteratorendringer er ikke lik endringer,");
+            }
+            if (!hasNext()) {
+                throw new NoSuchElementException("Det er ikke flere node i lista");
+            }
+            //Objects.requireNonNull(denne,"");
+            kanFjerne = true;
+            T retVedi = denne.verdi;
+            denne = denne.neste;
+            return retVedi;
+
         }
 
         // Oppgave 9:
@@ -441,11 +465,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
     @Override
     public Iterator<T> iterator() {
-        throw new UnsupportedOperationException();
+        return new DobbeltLenketListeIterator();
     }
 
     public Iterator<T> iterator(int indeks) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks,false);
+        return new DobbeltLenketListeIterator();
     }
 
     // Oppgave 10

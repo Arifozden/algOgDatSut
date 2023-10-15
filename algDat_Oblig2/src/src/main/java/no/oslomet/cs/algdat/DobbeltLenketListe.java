@@ -428,12 +428,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         private DobbeltLenketListeIterator(int indeks) {
             indeksKontroll(indeks,false);
-            denne = hode;
+            //denne = hode;
             kanFjerne = false;
             iteratorendringer = endringer;
-            for (int i = 0; i < indeks; i++) {
-                next();
-            }
+            //for (int i = 0; i < indeks; i++) {                next();            }
         }
 
         @Override
@@ -451,18 +449,47 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
             //Objects.requireNonNull(denne,"");
             kanFjerne = true;
-            T retVedi = denne.verdi;
+            T retVerdi = denne.verdi;
             denne = denne.neste;
-            return retVedi;
+            return retVerdi;
 
         }
 
         // Oppgave 9:
         @Override
         public void remove() {
-            throw new UnsupportedOperationException();
+
+            if (!kanFjerne || antall==0) {
+                throw new IllegalStateException("ikke lov å fjerne nå");
+            }
+            if (endringer != iteratorendringer) {
+                throw new ConcurrentModificationException("Iteratorendringer må være lik endringer");
+            }
+
+            kanFjerne = false;
+            if (denne == hode) {
+                if (antall == 1) {
+                    hode = hale = null;
+                } else {
+                    hode = hode.neste;
+                    hode.forrige = null;
+                }
+            } else if (denne == hale) {
+                hale = hale.forrige;
+                hale.neste = null;
+            } else {
+                denne.forrige.neste = denne.neste;
+                denne.neste.forrige = denne.forrige;
+                denne = null;
+            }
+            antall--;
+            endringer++;
+            iteratorendringer++;
+
         }
+
     }
+
     @Override
     public Iterator<T> iterator() {
         return new DobbeltLenketListeIterator();
@@ -470,11 +497,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public Iterator<T> iterator(int indeks) {
         indeksKontroll(indeks,false);
-        return new DobbeltLenketListeIterator();
+        return new DobbeltLenketListeIterator(indeks);
     }
 
     // Oppgave 10
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        throw new UnsupportedOperationException();
+        int antallVerdi = liste.antall();
+
+        if(liste.tom() && antallVerdi==1) return;
+
+        for (int i = 0; i <liste.antall() ; i++) {
+            for (int j = 0; j <liste.antall()-1 ; j++) {
+                if(c.compare(liste.hent(j),liste.hent(j+1) )>0){
+                    T temp = liste.hent(j+1);
+                    liste.oppdater(j+1, liste.hent(j));
+                    liste.oppdater(j, temp);
+                }
+            }
+}
+
     }
 }

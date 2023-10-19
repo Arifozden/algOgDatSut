@@ -408,10 +408,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     // Oppgave 7
     @Override
     public void nullstill() {
-        int startAntall = antall;
-        for(int i = 0; i < startAntall; i++) {
-            fjern(0);
+        Node<T> temp = hode;
+        while (temp != null) {
+            Node<T> curr = temp.neste;
+            temp.neste = null;
+            temp.forrige = null;
+            temp.verdi = null;
+            temp = curr;
         }
+        /*
+        for (int i = 0; i < antall; i++) {
+            fjern(0);
+        }*/
+        antall = 0;
+        hode = hale = null;
+    endringer++;
     }
 
     // Oppgave 8
@@ -427,11 +438,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         private DobbeltLenketListeIterator(int indeks) {
-            indeksKontroll(indeks,false);
-            //denne = hode;
+            indeksKontroll(indeks, false);
             kanFjerne = false;
             iteratorendringer = endringer;
-            //for (int i = 0; i < indeks; i++) {                next();            }
         }
 
         @Override
@@ -445,14 +454,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 throw new ConcurrentModificationException("iteratorendringer er ikke lik endringer,");
             }
             if (!hasNext()) {
-                throw new NoSuchElementException("Det er ikke flere node i lista");
+                throw new NoSuchElementException("Det er ikke flere i lista");
             }
-            //Objects.requireNonNull(denne,"");
             kanFjerne = true;
             T retVerdi = denne.verdi;
             denne = denne.neste;
             return retVerdi;
-
         }
 
         // Oppgave 9:
@@ -507,10 +514,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Iterator<T> iterator(int indeks) {
-        indeksKontroll(indeks,false);
-        return new DobbeltLenketListeIterator(indeks);
-    }
 
+        indeksKontroll(indeks, false);
+        return new DobbeltLenketListeIterator(indeks);
+}
     // Oppgave 10
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
         int antallVerdi = liste.antall();
